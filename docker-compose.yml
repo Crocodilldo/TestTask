@@ -1,0 +1,28 @@
+services:
+  test_app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: test_app
+    volumes:
+      - ./:/var/www
+    ports:
+      - "8000:8000"
+    depends_on:
+      - test_db
+
+  test_db:
+    image: mysql:8.0
+    container_name: test_mysql
+    environment:
+      MYSQL_DATABASE: tasks
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: wert
+      MYSQL_PASSWORD: wert
+    ports:
+      - "3306:3306"
+    volumes:
+      - dbdata:/var/lib/mysql
+
+volumes:
+  dbdata:
